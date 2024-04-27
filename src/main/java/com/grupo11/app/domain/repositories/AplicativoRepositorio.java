@@ -2,8 +2,9 @@ package com.grupo11.app.domain.repositories;
 
 import com.grupo11.app.domain.entity.Aplicativo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
-
+@Repository
 public interface AplicativoRepositorio extends JpaRepository<Aplicativo, UUID> {
 }
