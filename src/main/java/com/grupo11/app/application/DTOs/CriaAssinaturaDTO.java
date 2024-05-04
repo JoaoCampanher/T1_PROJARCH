@@ -5,5 +5,5 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
-public record CriaAssinaturaDTO(@NotBlank UUID id_assinatura,@NotBlank UUID id_cliente) {
+public record CriaAssinaturaDTO(@NotNull UUID id_aplicativo,@NotNull UUID id_cliente) {
 }

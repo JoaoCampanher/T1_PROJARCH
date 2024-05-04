@@ -1,6 +1,10 @@
 package com.grupo11.app.domain.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.grupo11.app.domain.entity.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,14 +26,16 @@ public class Assinatura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id_assinatura;
+    private UUID idAssinatura;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente", nullable = false)
+    @JsonIgnoreProperties(value = {"listaAssinaturas", "nome", "email", "listaPagamentos"}) // Ignore other fields of Cliente except idCliente
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "id_aplicativo", nullable = false)
+    @JsonIgnoreProperties(value = {"nome", "valor", "listaAssinaturas"}) // Ignore other fields of Aplicativo except idAplicativo
     private Aplicativo aplicativo;
 
     @Column(name = "inicioVigencia")
@@ -42,6 +48,7 @@ public class Assinatura {
     private List<Pagamento> listaPagamentos;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private Status statusAssinatura;
 
 }

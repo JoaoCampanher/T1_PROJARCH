@@ -1,5 +1,6 @@
 package com.grupo11.app.interfaces.controllers;
 
+import com.grupo11.app.application.DTOs.ValorAtualizadoDTO;
 import com.grupo11.app.domain.entity.Aplicativo;
 import com.grupo11.app.domain.services.AplicativoService;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,8 @@ public class AplicativoController {
     }
 
     @PostMapping("/servcad/aplicativos/atualizacusto/{idAplicativo}")
-    public ResponseEntity<Aplicativo> atualizaCustoAplicativo(@PathVariable("idAplicativo") UUID idAplicativo, @RequestBody BigDecimal valor){
-        Aplicativo aplicativo = aplicativoService.atualizaCustoAplicativo(idAplicativo, valor);
+    public ResponseEntity<Aplicativo> atualizaCustoAplicativo(@PathVariable("idAplicativo") UUID idAplicativo, @RequestBody ValorAtualizadoDTO valor){
+        Aplicativo aplicativo = aplicativoService.atualizaCustoAplicativo(idAplicativo, valor.valor());
         return ResponseEntity.ok(aplicativo);
     }
 
