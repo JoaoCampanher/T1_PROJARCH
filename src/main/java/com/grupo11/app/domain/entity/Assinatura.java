@@ -1,6 +1,7 @@
 package com.grupo11.app.domain.entity;
 
 
+import com.grupo11.app.domain.entity.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,5 +40,8 @@ public class Assinatura {
 
     @OneToMany(mappedBy = "assinatura")
     private List<Pagamento> listaPagamentos;
+
+    @Enumerated(EnumType.STRING)
+    private Status statusAssinatura;
 
 }
