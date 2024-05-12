@@ -8,7 +8,10 @@ import com.grupo11.app.domain.entity.enums.Status;
 import com.grupo11.app.domain.entity.enums.StatusPagamento;
 import com.grupo11.app.domain.repositories.AssinaturaRepositorio;
 import com.grupo11.app.domain.repositories.PagamentoRepositorio;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -26,10 +29,11 @@ public class PagamentoService {
         this.assinaturaRepositorio = assinaturaRepositorio;
     }
 
+    @Transactional
     public RespostaPagamentoDTO registrarPagamento(PagamentoDTO pagamentoDTO) {
         Pagamento pagamento = new Pagamento();
 
-        Assinatura assinatura = assinaturaRepositorio.findById(pagamentoDTO.codass()).orElseThrow(() -> new RuntimeException("Assinatura não encontrada"));
+        Assinatura assinatura = assinaturaRepositorio.findById(pagamentoDTO.codass()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Assinatura não encontrada"));
 
         if(assinatura.getAplicativo().getValor().equals(pagamentoDTO.valorPago())) {
             if(assinatura.getStatusAssinatura().equals(Status.CANCELADA)){
