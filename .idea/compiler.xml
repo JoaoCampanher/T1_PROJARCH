@@ -8,11 +8,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
-        <module name="app" />
+        <module name="scaa-service" />
         <module name="ass-cache" />
         <module name="eureka-server" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="app" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -20,6 +23,7 @@
       <module name="app" options="-parameters" />
       <module name="ass-cache" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
+      <module name="scaa-service" options="-parameters" />
     </option>
   </component>
 </project>
