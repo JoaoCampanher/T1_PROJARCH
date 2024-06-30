@@ -36,9 +36,8 @@ services:
       - eureka-server
       - rabbitmq
   ass-cache-service:
-    container_name: ass-cache-service-t2
     ports:
-      - "8082:8082"
+      - "8082"
     build:
       dockerfile: Dockerfile
       context: ass-cache/
@@ -52,7 +51,7 @@ services:
       - eureka-server
       - rabbitmq
   rabbitmq:
-    container_name: rbbitmq
+    container_name: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"

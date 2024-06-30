@@ -3,6 +3,7 @@ package com.grupo11.asscache.services;
 import com.grupo11.asscache.dtos.AssinaturaStatusDTO;
 import com.grupo11.asscache.dtos.NewValidDateMessage;
 import com.grupo11.asscache.proxy.ValidaAssinaturaClient;
+import org.slf4j.Logger;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,8 @@ public class ValidaAssinaturaService {
     private ValidaAssinaturaClient validaAssinaturaClient;
 
     private Map<String, LocalDate> dicionarioDeAssinaturas;
+
+    private final Logger logger = org.slf4j.LoggerFactory.getLogger(ValidaAssinaturaService.class);
 
     public ValidaAssinaturaService(ValidaAssinaturaClient validaAssinaturaClient) {
         this.dicionarioDeAssinaturas = new HashMap<>();
@@ -55,14 +58,8 @@ public class ValidaAssinaturaService {
         UUID codass  = message.codass();
         String codassString = codass.toString();
         LocalDate date = LocalDate.parse(dateStr);
-
-        LocalDate localDate = dicionarioDeAssinaturas.get(codassString);
-
-        if (localDate != null ) {
-            dicionarioDeAssinaturas.replace(codassString, date);
-        }
-
-        System.out.println("Received update subscription validation date: " + message);
+        dicionarioDeAssinaturas.replace(codassString, date);
+        logger.info("Received update subscription validation date: " + message);
     }
 
 }
